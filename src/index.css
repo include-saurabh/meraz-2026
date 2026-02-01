@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-void: #0a0a0a;
+  --color-acid: #ccff00;
+  --color-pink: #ff0099;
+}
+
+body {
+  background-color: var(--color-void);
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-acid);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-pink);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.neo-brutalist-shadow {
+  box-shadow: 4px 4px 0px var(--color-acid);
+}
+
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -1px 0 #ff0099;
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -1px 0 #ccff00;
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitch-anim 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(13px, 9999px, 81px, 0); }
+  20% { clip: rect(78px, 9999px, 10px, 0); }
+  40% { clip: rect(6px, 9999px, 57px, 0); }
+  60% { clip: rect(96px, 9999px, 16px, 0); }
+  80% { clip: rect(32px, 9999px, 98px, 0); }
+  100% { clip: rect(54px, 9999px, 44px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip: rect(65px, 9999px, 9px, 0); }
+  20% { clip: rect(4px, 9999px, 63px, 0); }
+  40% { clip: rect(89px, 9999px, 91px, 0); }
+  60% { clip: rect(2px, 9999px, 24px, 0); }
+  80% { clip: rect(76px, 9999px, 34px, 0); }
+  100% { clip: rect(38px, 9999px, 47px, 0); }
+}
