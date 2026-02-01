@@ -805,7 +805,8 @@ const AuthModal = ({ isOpen, onClose, onLogin }) => {
             }
             onClose();
         } catch (err) {
-            setError(err.message);
+            // Enhance error display for better visibility
+            setError(err.message.replace('COMPILE_ERROR: ', '')); // Avoid double prefix if backend sends clean text
         } finally {
             setLoading(false);
         }
@@ -841,30 +842,30 @@ const AuthModal = ({ isOpen, onClose, onLogin }) => {
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="space-y-1">
+                        <label className="text-xs font-mono text-acid-lime uppercase">Username</label>
+                        <input
+                            type="text"
+                            value={formData.username}
+                            onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                            className="w-full bg-black border border-white/20 p-3 text-white font-mono focus:border-acid-lime focus:outline-none focus:ring-1 focus:ring-acid-lime transition-all"
+                            placeholder="ENTER_ID"
+                            required
+                        />
+                    </div>
                     {!isLogin && (
                         <div className="space-y-1">
-                            <label className="text-xs font-mono text-acid-lime uppercase">Username</label>
+                            <label className="text-xs font-mono text-acid-lime uppercase">Email Protocol</label>
                             <input
-                                type="text"
-                                value={formData.username}
-                                onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                                type="email"
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                 className="w-full bg-black border border-white/20 p-3 text-white font-mono focus:border-acid-lime focus:outline-none focus:ring-1 focus:ring-acid-lime transition-all"
-                                placeholder="ENTER_ID"
+                                placeholder="USER@DOMAIN.COM"
                                 required
                             />
                         </div>
                     )}
-                    <div className="space-y-1">
-                        <label className="text-xs font-mono text-acid-lime uppercase">Email Protocol</label>
-                        <input
-                            type="email"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="w-full bg-black border border-white/20 p-3 text-white font-mono focus:border-acid-lime focus:outline-none focus:ring-1 focus:ring-acid-lime transition-all"
-                            placeholder="USER@DOMAIN.COM"
-                            required
-                        />
-                    </div>
                     <div className="space-y-1">
                         <label className="text-xs font-mono text-acid-lime uppercase">Password Key</label>
                         <input

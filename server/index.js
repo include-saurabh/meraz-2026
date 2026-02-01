@@ -81,10 +81,10 @@ app.post('/api/register', async (req, res) => {
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
 
-    const sql = 'SELECT * FROM users WHERE username = ?';
+    const sql = 'SELECT * FROM users WHERE LOWER(username) = LOWER(?)';
     db.get(sql, [username], async (err, user) => {
         if (err) return res.status(500).json({ error: err.message });
-        if (!user) return res.status(400).json({ error: 'User not found' });
+        if (!user) return res.status(400).json({ error: 'User not found. Please Register.' });
 
         const match = await bcrypt.compare(password, user.password_hash);
         if (match) {
